@@ -1,53 +1,46 @@
 package belote.model;
 
-import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Random;
-
-import belote.util.RandomUtil;
 
 public class Deck  {
 	
 	private List<Card> cards;
-	
-	
+	private EnumMap<ColorEnum, Color> colors;
+	private ColorEnum atout;
 	
 	public Deck() {
-		createDeck();
-	}
-
-
-	private void createDeck() {
-		cards = new ArrayList<>();
-		
-		for(ColorEnum color : ColorEnum.values()) {			
-			for(CardValue value : CardValue.values()) {
-				cards.add(new Card(color, value));
-			}			
-		}
+		colors = new EnumMap<>(ColorEnum.class);
 	}
 	
-	
-	public void shuffle() {
-		
-		List<Card> cardsTemp = new ArrayList<>();
-		
-		while (!cards.isEmpty()) {
-			
-			RandomUtil randomUtil = new RandomUtil();
-
-			int index = randomUtil.getRandom(cards.size());			
-			cardsTemp.add(cards.remove(index));
-		}
-		
-		cards = cardsTemp;
-	}
-
-
 	public List<Card> getCards() {
 		return cards;
 	}
+	
+	public void addColor(Color color) {
+		colors.put(color.getColor(), color);		
+	}
+	
+	/**
+	 * renvoie un Color à partir de la liste de couleur
+	 * @param colorEnum clé de la couleur à renvoyer
+	 * @return la color demandé
+	 */
+	public Color getColor(ColorEnum colorEnum) {
+		return colors.get(colorEnum);
+	}
+	
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
 
+	public ColorEnum getAtout() {
+		return atout;
+	}
+
+	public void setAtout(ColorEnum atout) {
+		this.atout = colors.get(atout).getColor();
+	}
 
 	@Override
 	public int hashCode() {
@@ -56,7 +49,6 @@ public class Deck  {
 		result = prime * result + ((cards == null) ? 0 : cards.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {

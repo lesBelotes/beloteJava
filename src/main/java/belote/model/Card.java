@@ -6,8 +6,7 @@ public class Card {
 	private CardValue value;
 	
 	public Card(ColorEnum colorEnum, CardValue value) {
-		this.color = new Color(colorEnum);
-		this.value = value;
+		this(new Color(colorEnum), value);
 	}
 	
 	public Card(Color color, CardValue value) {

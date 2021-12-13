@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import belote.model.Game;
 import belote.model.State;
-import belote.tests.Mocks.PlayersMock;
+import belote.tests.mocks.PlayersMock;
 
 class GameTests {
 	

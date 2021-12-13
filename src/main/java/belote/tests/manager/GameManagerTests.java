@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import belote.exeption.GameException;
 import belote.manager.GameManager;
 import belote.model.Game;
-import belote.tests.Mocks.PlayersMock;
+import belote.tests.mocks.PlayersMock;
 
 class GameManagerTests {
 	

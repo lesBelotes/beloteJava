@@ -11,8 +11,7 @@ public class RandomUtil {
 		int rValue = 0;
 		try {
 			random = SecureRandom.getInstanceStrong();
-			rValue = random.nextInt(limit);
-			
+			rValue = random.nextInt(limit);			
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

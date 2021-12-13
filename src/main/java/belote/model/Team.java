@@ -2,18 +2,44 @@ package belote.model;
 
 public class Team {
 	
-	protected Player player1;
-	protected Player player2;
+	private Player player1;
+	private Player player2;
 	
-	protected int score;
+	//point de equipe de la partie
+	private int score;
+	
+	
+
+	public Team() {
+		super();
+		this.score = 0;
+	}
 
 	public int getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public Player getPlayer1() {
+		return player1;
 	}
+
+	public void setPlayer1(Player player1) {
+		this.player1 = player1;
+	}
+
+	public Player getPlayer2() {
+		return player2;
+	}
+
+	public void setPlayer2(Player player2) {
+		this.player2 = player2;
+	}
+	
+	public void addPoints(int points) {
+		score += points;
+	}
+	
+	
 	
 	
 	

@@ -14,39 +14,20 @@ import belote.model.Card;
 import belote.model.ColorEnum;
 import belote.model.Deck;
 import belote.model.Player;
+import belote.tests.Mocks.PlayersMock;
 
 public class DeckManagerTests {
 	
-	private List<Player> getPlayers(){	
-
-		List<Player> players = new ArrayList<>();
-		
-		Player bob = new Player("Bob", "");
-		Player liliane = new Player("Liliane", "");
-		Player sandy = new Player("Sandy", "");
-		Player tapette = new Player("Tapette", "");
-		
-		players.add(bob);
-		players.add(liliane);
-		players.add(sandy);
-		players.add(tapette);
-		
-		return players;
-		
-	}
+	
 	
 	@Test
-	public void distributeTest() {
+	public void distributeTest() throws GameException {
 
-		List<Player> players = getPlayers();
+		List<Player> players = PlayersMock.getPlayers();
 		
 		DeckManager deckManager = new DeckManager();
-		try {
-			deckManager.distribute(players);
-		} catch (GameException e) {
-			e.printStackTrace();
-		}
-		
+		deckManager.distribute(players);
+				
 		for (Player player : players) {
 			int nbCards = player.getHand().size();
 			assertFalse(nbCards != 8);			
@@ -56,28 +37,28 @@ public class DeckManagerTests {
 	
 	@Test
 	public void distributeTestNotEnoughPlayer() {
-		
+
 		List<Player> players = new ArrayList<>();
 		players.add(new Player("ouaiGros", ""));
-		
+
 		DeckManager deckManager = new DeckManager();
-		
-		Assertions.assertThrows(GameException.class, () -> {
-			deckManager.distribute(players);
-		  });		
+
+		Assertions.assertThrows(GameException.class, () -> 
+		deckManager.distribute(players)
+				);		
 	}
 	
 	@Test
 	public void distributeTestToMuchPlayer() {
 		
-		List<Player> players = getPlayers();
+		List<Player> players = PlayersMock.getPlayers();
 		players.add(new Player("ouaiGros", ""));
 		
 		DeckManager deckManager = new DeckManager();
 		
-		Assertions.assertThrows(GameException.class, () -> {
-			deckManager.distribute(players);
-		  });		
+		Assertions.assertThrows(GameException.class, () -> 
+			deckManager.distribute(players)
+		  );		
 	}
 	
 	@Test
@@ -109,18 +90,14 @@ public class DeckManagerTests {
 	}
 	
 	@Test
-	public void testSetAtout() {
+	public void testSetAtout() throws GameException {
 		DeckManager deckManager = new DeckManager();
 		
 		Deck deck = deckManager.createDeck();		
 		deckManager.shuffle(deck);
 		
-		List<Player> players = getPlayers();
-		try {
-			deckManager.distribute(players);
-		} catch (GameException e) {
-			e.printStackTrace();
-		}
+		List<Player> players = PlayersMock.getPlayers();
+		deckManager.distribute(players);
 		
 		deckManager.setAtout(deck, ColorEnum.CLUB);
 		

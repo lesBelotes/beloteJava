@@ -2,7 +2,7 @@ package belote.model;
 
 public class Color {
 	
-	private ColorEnum color;
+	private ColorEnum colorEnum;
 	private boolean isAtout;
 	
 	public Color(ColorEnum color) {
@@ -10,12 +10,12 @@ public class Color {
 	}
 	
 	public Color(ColorEnum color, boolean isAtout) {
-		this.color = color;
+		this.colorEnum = color;
 		this.isAtout = isAtout;
 	}
 
 	public ColorEnum getColor() {
-		return color;
+		return colorEnum;
 	}
 
 	public boolean isAtout() {
@@ -30,7 +30,7 @@ public class Color {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((colorEnum == null) ? 0 : colorEnum.hashCode());
 		return result;
 	}
 
@@ -43,7 +43,7 @@ public class Color {
 		if (getClass() != obj.getClass())
 			return false;
 		Color other = (Color) obj;
-		return color.equals(other.color);
+		return colorEnum.equals(other.colorEnum);
 	}
 	
 	

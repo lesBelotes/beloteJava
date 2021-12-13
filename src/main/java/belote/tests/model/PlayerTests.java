@@ -9,7 +9,7 @@ import belote.model.CardValue;
 import belote.model.Color;
 import belote.model.ColorEnum;
 import belote.model.Player;
-import belote.tests.mocks.PlayersMock;
+import belote.tests.Mocks.PlayersMock;
 
 class PlayerTests {
 

@@ -14,7 +14,7 @@ import belote.model.Card;
 import belote.model.ColorEnum;
 import belote.model.Deck;
 import belote.model.Player;
-import belote.tests.mocks.PlayersMock;
+import belote.tests.Mocks.PlayersMock;
 
 public class DeckManagerTests {
 	

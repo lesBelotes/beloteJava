@@ -1,4 +1,4 @@
-package belote.tests.mocks;
+package belote.tests.Mocks;
 
 import java.util.ArrayList;
 import java.util.List;

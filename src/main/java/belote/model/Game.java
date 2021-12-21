@@ -1,7 +1,9 @@
 package belote.model;
 
 public class Game {
-	
+	/**
+	 * 2 equipes pour jouer , chaque equie contient 2 joueurs.
+	 */
 	private Team teamNS;
 	private Team teamEW;
 	

@@ -1,6 +1,8 @@
 package belote.tests.manager;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class DeckManagerTests {
 				
 		for (Player player : players) {
 			int nbCards = player.getHand().size();
-			assertFalse(nbCards != 8);			
+			assertEquals(nbCards, 8);
 		}
 	}
 	
@@ -70,8 +72,8 @@ public class DeckManagerTests {
 		
 		int nbCards = deck.getCards().size();
 		
-		assertFalse(nbCards != 32);		
-		assertFalse(!deck.getCards().equals(deck2.getCards()));		
+		assertEquals(nbCards ,32);		
+		assertEquals(deck.getCards(),deck2.getCards());		
 	}
 	
 	@Test
@@ -85,8 +87,8 @@ public class DeckManagerTests {
 		
 		int nbCards = deck.getCards().size();
 		
-		assertFalse(nbCards != 32);		
-		assertFalse(deck.getCards().equals(deck2.getCards()));		
+		assertEquals(nbCards ,32);		
+		assertNotEquals(deck.getCards(),deck2.getCards());
 	}
 	
 	@Test
@@ -104,9 +106,9 @@ public class DeckManagerTests {
 		for (Player player : players) {
 			for (Card card : player.getHand()) {
 				if(ColorEnum.CLUB.equals(card.getColor())) {
-					assertFalse(!ColorEnum.CLUB.equals(deck.getAtout()));
+					assertEquals(ColorEnum.CLUB, deck.getAtout());
 				}else {
-					assertFalse(card.getColor().equals(deck.getAtout()));
+					assertNotEquals(card.getColor(), deck.getAtout());
 				}
 			}						
 		}

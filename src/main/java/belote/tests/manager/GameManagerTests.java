@@ -1,6 +1,10 @@
 package belote.tests.manager;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +22,7 @@ class GameManagerTests {
 	   
 	  @BeforeEach
 	  void intTests() {
-		  assertFalse(gameManager != null);
+		  assertNull(gameManager);
 		  gameManager = GameManager.getInstance();		  
 	  }
 	  
@@ -37,8 +41,8 @@ class GameManagerTests {
 		String idGame = gameManager.createGame();
 		Game game = gameManager.getGameById(idGame);
 		
-		assertFalse(game == null);
-		assertFalse(!idGame.equals(game.getId()));
+		assertNotNull(game);
+		assertEquals(idGame,game.getId());
 	}
 	
 	@Test
@@ -46,7 +50,7 @@ class GameManagerTests {
 		Game game1 = gameManager.getNewGame();
 		Game game2 = gameManager.getNewGame();
 		
-		assertFalse(game1.equals(game2));
+		assertNotEquals(game1,game2);
 	}
 	
 	@Test

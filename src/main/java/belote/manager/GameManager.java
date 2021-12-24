@@ -34,7 +34,7 @@ public class GameManager {
 	 * @return l'id de la game
 	 */
 	public synchronized String createGame() {
-		String id = setId();
+		String id = renerateId();
 		games.put(id, new Game(id));
 		return id;		
 	}
@@ -72,7 +72,7 @@ public class GameManager {
 	 * recommence jusqu'à ce que en avoir non usité
 	 * @return curentTime
 	 */
-	private String setId() {
+	private String renerateId() {
 		double id = System.currentTimeMillis();
 		String idStr = Double.toString(id);
 		

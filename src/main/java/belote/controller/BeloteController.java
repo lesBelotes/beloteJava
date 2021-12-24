@@ -1,5 +1,7 @@
 package belote.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,5 +45,14 @@ public class BeloteController {
 		
 		
 		return id;
+	}
+	
+	@GetMapping("/belote/games")
+	public  GameManager getgames(){
+		
+		
+		GameManager games=GameManager.getInstance();
+		
+		return games;
 	}
 }

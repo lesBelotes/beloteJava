@@ -3,6 +3,8 @@ package belote.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import belote.exeption.GameException;
@@ -12,10 +14,12 @@ import belote.model.Player;
 
 @CrossOrigin
 @RestController
+@RequestMapping(path = "belote")
+
 public class BeloteController {
 
 	
-	@GetMapping("/belote/create")
+	@PutMapping("/game")
 	public String createBelote() {
 		
 		GameManager n=GameManager.getInstance();

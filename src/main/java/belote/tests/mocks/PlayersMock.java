@@ -57,4 +57,11 @@ public class PlayersMock {
 		return tapette;
 	}
 
+	public static void iniPlayers() {
+		bob = null;
+		liliane = null;
+		sandy = null;
+		tapette = null;		
+	}
+
 }

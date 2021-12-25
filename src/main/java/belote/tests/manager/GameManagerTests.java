@@ -2,8 +2,8 @@ package belote.tests.manager;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.AfterEach;
@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import belote.exeption.GameException;
 import belote.manager.GameManager;
 import belote.model.Game;
+import belote.model.State;
 import belote.tests.mocks.PlayersMock;
 
 class GameManagerTests {
@@ -23,18 +24,14 @@ class GameManagerTests {
 	  @BeforeEach
 	  void intTests() {
 		  assertNull(gameManager);
-		  gameManager = GameManager.getInstance();		  
+		  gameManager = GameManager.getInstance();
+		  PlayersMock.iniPlayers();
 	  }
 	  
 	  @AfterEach
 	  void resetGameManager() {
 		  gameManager = null;
 	  }
-
-	@Test
-	void test() {
-		//fail("Not yet implemented");
-	}
 	
 	@Test
 	void createGameTestNotNull() {
@@ -59,20 +56,24 @@ class GameManagerTests {
 		Game game = gameManager.getGameById(idGame);
 		
 		gameManager.addPlayerToGame(idGame, PlayersMock.getBob());
-		assertFalse(!PlayersMock.getBob().equals(game.getNorth()));
-		assertFalse(!PlayersMock.getBob().isInGame());
+		assertEquals(PlayersMock.getBob(), game.getNorth());
+		assertTrue(PlayersMock.getBob().isInGame());
+		assertEquals(game.getState(), State.WAITING);
 		
 		gameManager.addPlayerToGame(idGame, PlayersMock.getLiliane());
-		assertFalse(!PlayersMock.getLiliane().equals(game.getWest()));
-		assertFalse(!PlayersMock.getLiliane().isInGame());	
+		assertEquals(PlayersMock.getLiliane(), game.getWest());
+		assertTrue(PlayersMock.getLiliane().isInGame());
+		assertEquals(game.getState(), State.WAITING);
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getSandy());
-		assertFalse(!PlayersMock.getSandy().equals(game.getSouth()));
-		assertFalse(!PlayersMock.getSandy().isInGame());
+		assertEquals(PlayersMock.getSandy(), game.getSouth());
+		assertTrue(PlayersMock.getSandy().isInGame());
+		assertEquals(game.getState(), State.WAITING);
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getTapette());
-		assertFalse(!PlayersMock.getTapette().equals(game.getEast()));
-		assertFalse(!PlayersMock.getTapette().isInGame());
+		assertEquals(PlayersMock.getTapette(), game.getEast());
+		assertTrue(PlayersMock.getTapette().isInGame());
+		assertEquals(game.getState(), State.START);
 	}
 	
 	@Test
@@ -81,16 +82,24 @@ class GameManagerTests {
 		Game game = gameManager.getGameById(idGame);
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getLiliane(),3);
-		assertFalse(!PlayersMock.getLiliane().equals(game.getEast()));
+		assertEquals(PlayersMock.getLiliane(), game.getEast());
+		assertTrue(PlayersMock.getLiliane().isInGame());
+		assertEquals(game.getState(), State.WAITING);
 		
 		gameManager.addPlayerToGame(idGame, PlayersMock.getSandy(),1);
-		assertFalse(!PlayersMock.getSandy().equals(game.getWest()));	
+		assertEquals(PlayersMock.getSandy(), game.getWest());
+		assertTrue(PlayersMock.getSandy().isInGame());
+		assertEquals(game.getState(), State.WAITING);
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getBob(),2);
-		assertFalse(!PlayersMock.getBob().equals(game.getSouth()));
+		assertEquals(PlayersMock.getBob(), game.getSouth());
+		assertTrue(PlayersMock.getBob().isInGame());
+		assertEquals(game.getState(), State.WAITING);
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getTapette(),0);
-		assertFalse(!PlayersMock.getTapette().equals(game.getNorth()));
+		assertEquals(PlayersMock.getTapette(), game.getNorth());
+		assertTrue(PlayersMock.getTapette().isInGame());
+		assertEquals(game.getState(), State.START);
 	}
 	
 	@Test
@@ -101,7 +110,7 @@ class GameManagerTests {
 		Assertions.assertThrows(GameException.class, () -> 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getLiliane(),7)
 				);
-		assertFalse(game.getNbPlayer() != 0);		
+		assertEquals(game.getNbPlayer(), 0);
 	}
 	
 	

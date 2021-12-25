@@ -7,6 +7,7 @@ import belote.exeption.GameException;
 import belote.model.Game;
 import belote.model.Player;
 import belote.model.State;
+import belote.util.RandomUtil;
 
 public class GameManager {
 	
@@ -34,7 +35,7 @@ public class GameManager {
 	 * @return l'id de la game
 	 */
 	public synchronized String createGame() {
-		String id = renerateId();
+		String id = RandomUtil.generateId(games.keySet());
 		games.put(id, new Game(id));
 		return id;		
 	}
@@ -65,22 +66,6 @@ public class GameManager {
 			throw new GameException(GAME_NO_FOUND);
 		}
 		return game;
-	}
-	
-	/**
-	 * si le addPlayerToGame est deja utilisé, ajoute +1 à celui et 
-	 * recommence jusqu'à ce que en avoir non usité
-	 * @return curentTime
-	 */
-	private String renerateId() {
-		double id = System.currentTimeMillis();
-		String idStr = Double.toString(id);
-		
-		while(games.get(idStr)!=null) {
-			id++;
-			idStr = Double.toString(id);
-		}
-		return idStr;		
 	}
 	
 	/***

@@ -1,7 +1,5 @@
 package belote.controller;
 
-import java.util.Map;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import belote.exeption.GameException;
 import belote.manager.GameManager;
-import belote.model.Game;
+import belote.manager.PlayerManager;
 import belote.model.Player;
 
 @CrossOrigin
@@ -54,5 +52,28 @@ public class BeloteController {
 		GameManager games=GameManager.getInstance();
 		
 		return games;
+	}
+	
+	@GetMapping("/beloteArea/connecte/{pseudo}/{ip}")
+	public String connectPlayer(@PathVariable String pseudo,@PathVariable String ip) {
+		PlayerManager playerManager = PlayerManager.getInstance();
+		return playerManager.createPlayer(pseudo, ip);
+	}
+	
+	@GetMapping("/beloteArea/addPlayer/{idPlayer}/{idgame}")
+     public String addPlayer(@PathVariable String idPlayer,@PathVariable String idgame){	
+		
+		PlayerManager playerManager = PlayerManager.getInstance();
+		GameManager gameManager =GameManager.getInstance();
+		
+		Player joueur = playerManager.getPlayer(idPlayer);		
+		  
+			try {
+				gameManager.addPlayerToGame(idgame, joueur);
+			} catch (GameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return "player " + joueur.getPseudo() + " added";
 	}
 }

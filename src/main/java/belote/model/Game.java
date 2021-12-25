@@ -1,5 +1,8 @@
 package belote.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 	/**
 	 * 2 equipes pour jouer , chaque equie contient 2 joueurs.
@@ -9,7 +12,6 @@ public class Game {
 	
 	private String id;
 	private int pointMax;
-	private Player[] players;
 	
 	private State state;
 
@@ -19,7 +21,6 @@ public class Game {
 		this.id = id;
 		pointMax = 2250;
 		state = State.WAITING;
-		players = new Player[4];
 	}
 
 	public Team getTeamNS() {
@@ -52,22 +53,18 @@ public class Game {
 	
 	public void setNorth(Player player) {
 		teamNS.setPlayer1(player);
-		players[0] = player;
 	}
 	
 	public void setSouth(Player player) {
 		teamNS.setPlayer2(player);
-		players[2] = player;
 	}
 	
 	public void setWest(Player player) {
 		teamEW.setPlayer1(player);
-		players[1] = player;	
 	}
 	
 	public void setEast(Player player) {
 		teamEW.setPlayer2(player);
-		players[3] = player;
 	}
 	
 	/**
@@ -106,14 +103,39 @@ public class Game {
 		return pointMax;
 	}
 
+	/**
+	 * 
+	 * @return nombre de joueur présent dans la partie
+	 */
 	public int getNbPlayer() {
-		int nbPlayer = 0;		
-		for (Player player : players) {
-			if(player != null) {
-				nbPlayer ++;
-			}
-		}
-		return nbPlayer;		
+		
+		return getPlayers().size();		
+	}
+	
+	/**
+	 * 
+	 * @return la liste des plyer de la partie
+	 */
+	public List<Player> getPlayers() {
+		
+		List<Player> players = new ArrayList<>();
+		addPlayer(players, getNorth());
+		addPlayer(players, getWest());
+		addPlayer(players, getSouth());
+		addPlayer(players, getEast());
+		
+		return players;
+	}
+	
+	/**
+	 * ajoute un player à une list si celui ci n est pas null
+	 * @param players list dont on ajoute le joueur
+	 * @param playerToAdd joueur a ajouter
+	 */
+	private void addPlayer(List<Player> players, Player playerToAdd) {		
+		if(playerToAdd != null) {
+			players.add(playerToAdd);
+		}		
 	}
 
 	@Override

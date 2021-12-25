@@ -51,10 +51,11 @@ public class DeckManager {
 		while (!deck.getCards().isEmpty()) {
 			int cardToDistribute = nbCardToDistribute(cardsDistributed);
 			cardsDistributed += cardToDistribute;
-
-			for (Player player : players) {
-				for (int i = 0; i < cardToDistribute; i++) {
+			for (Player player : players) {				
+				int cmp = 0;				
+				while (cmp < cardToDistribute) {
 					player.addCardToHand(deck.getCards().remove(0));
+					cmp++;					
 				}
 			}
 		}
@@ -98,10 +99,8 @@ public class DeckManager {
 	public void shuffle(Deck deck) {
 
 		List<Card> cardsTemp = new ArrayList<>();		
-		while (!deck.getCards().isEmpty()) {			
-			RandomUtil randomUtil = new RandomUtil();
-
-			int index = randomUtil.getRandom(deck.getCards().size());			
+		while (!deck.getCards().isEmpty()) {
+			int index = RandomUtil.getRandom(deck.getCards().size());			
 			cardsTemp.add(deck.getCards().remove(index));
 		}		
 		deck.setCards(cardsTemp);
@@ -124,9 +123,7 @@ public class DeckManager {
 	 * @return un int aléatoire de 1 à valeur de nbCardMax +1
 	 */
 	private int nbCardToDistribute(int cardsDistributed, int nbCardMax) {
-
-		RandomUtil randomUtil = new RandomUtil();
-		int nbCard = randomUtil.getRandom(nbCardMax) + 1;
+		int nbCard = RandomUtil.getRandom(nbCardMax) + 1;
 
 		cardsDistributed += nbCard;
 

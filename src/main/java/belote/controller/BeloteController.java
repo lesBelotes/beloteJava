@@ -1,8 +1,11 @@
 package belote.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import belote.exeption.GameException;
 import belote.manager.GameManager;
 import belote.manager.PlayerManager;
+import belote.model.Game;
 import belote.model.Player;
 
 @CrossOrigin
@@ -19,7 +23,7 @@ import belote.model.Player;
 public class BeloteController {
 
 	
-	@PutMapping("/game")
+	@PostMapping("/game")
 	public String createBelote() {
 		
 		GameManager n=GameManager.getInstance();
@@ -29,43 +33,23 @@ public class BeloteController {
 		
 	}
 	
-	@GetMapping("/beloteArea/connecte/{pseudo}/{ip}/{id}/{idgame}")
-     public String beloteArea(@PathVariable String pseudo,@PathVariable String ip,@PathVariable String id,@PathVariable String idgame){
+	
+	@GetMapping("/games")
+	public  Map<String, Game> getgames(){
 		
-		Player joueur=new Player(pseudo,ip,id);
-		
-		
-		GameManager j=GameManager.getInstance();
-		
-		  
-			try {
-				j.addPlayerToGame(idgame, joueur);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		
-		return id;
+		GameManager gameManager=GameManager.getInstance();
+
+		return gameManager.getGames();
 	}
 	
-	@GetMapping("/belote/games")
-	public  GameManager getgames(){
-		
-		
-		GameManager games=GameManager.getInstance();
-		
-		return games;
-	}
-	
-	@GetMapping("/beloteArea/connecte/{pseudo}/{ip}")
-	public String connectPlayer(@PathVariable String pseudo,@PathVariable String ip) {
+	@PostMapping("/player/{pseudo}")
+	public String connectPlayer(@PathVariable String pseudo) {
 		PlayerManager playerManager = PlayerManager.getInstance();
-		return playerManager.createPlayer(pseudo, ip);
+		return playerManager.createPlayer(pseudo, "");
 	}
 	
-	@GetMapping("/beloteArea/addPlayer/{idPlayer}/{idgame}")
-     public String addPlayer(@PathVariable String idPlayer,@PathVariable String idgame){	
+	@PutMapping("/game/player/{idgame}/{idPlayer}")
+     public String addPlayer(@PathVariable String idgame,@PathVariable String idPlayer){	
 		
 		PlayerManager playerManager = PlayerManager.getInstance();
 		GameManager gameManager =GameManager.getInstance();

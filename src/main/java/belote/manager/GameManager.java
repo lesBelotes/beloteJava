@@ -30,6 +30,9 @@ public class GameManager {
 	    return instance;
 	}
 
+	public Map<String, Game> getGames() {
+		return games;
+	}
 	/***
 	 * créer une game
 	 * @return l'id de la game

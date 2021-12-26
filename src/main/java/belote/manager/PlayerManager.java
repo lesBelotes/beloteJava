@@ -2,6 +2,7 @@ package belote.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import belote.model.Player;
 import belote.util.RandomUtil;
@@ -35,7 +36,10 @@ public class PlayerManager {
 	}
 	
 	public Player getPlayer(String id) {
-		return players.get(id);
+		Player player = players.get(id);
+		if(player ==null)
+			throw new NoSuchElementException(String.format("player with id %s not found", id));
+		return player;
 	}
 
 }

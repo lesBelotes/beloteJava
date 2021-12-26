@@ -1,7 +1,9 @@
 package belote.controller;
 
+import java.util.Collection;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,11 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import belote.exeption.GameException;
 import belote.manager.GameManager;
 import belote.manager.PlayerManager;
 import belote.model.Game;
 import belote.model.Player;
+import belote.websocket.BeloteSocketHandler;
 
 @CrossOrigin
 @RestController
@@ -22,29 +24,30 @@ import belote.model.Player;
 
 public class BeloteController {
 
+	@Autowired
+	BeloteSocketHandler socketManager;
 	
 	@PostMapping("/game")
-	public String createBelote() {
-		
+	public Game createBelote() {
 		GameManager n=GameManager.getInstance();
-		String id= n.createGame();
-		
-		return id;
-		
+		Game game = n.getNewGame();
+		socketManager.broadcastNewGame(game.toString());
+		return game;
 	}
 	
 	
 	@GetMapping("/games")
-	public  Map<String, Game> getgames(){
+	public  Collection<Game> getgames(){
 		
 		GameManager gameManager=GameManager.getInstance();
 
-		return gameManager.getGames();
+		return gameManager.getGames().values();
 	}
 	
 	@PostMapping("/player/{pseudo}")
 	public String connectPlayer(@PathVariable String pseudo) {
 		PlayerManager playerManager = PlayerManager.getInstance();
+		socketManager.broadcastNewPlayer("new one");
 		return playerManager.createPlayer(pseudo, "");
 	}
 	
@@ -55,13 +58,8 @@ public class BeloteController {
 		GameManager gameManager =GameManager.getInstance();
 		
 		Player joueur = playerManager.getPlayer(idPlayer);		
-		  
-			try {
-				gameManager.addPlayerToGame(idgame, joueur);
-			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		gameManager.addPlayerToGame(idgame, joueur);
+		socketManager.broadcastNewPlayer(joueur.toString());
 		return "player " + joueur.getPseudo() + " added";
 	}
 }

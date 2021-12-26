@@ -2,8 +2,8 @@ package belote.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
-import belote.exeption.GameException;
 import belote.model.Game;
 import belote.model.Player;
 import belote.model.State;
@@ -43,7 +43,7 @@ public class GameManager {
 		return id;		
 	}
 	
-	public Game getNewGame() throws GameException {
+	public Game getNewGame() {
 		String id = createGame();
 		return getGame(id);		
 	}
@@ -63,10 +63,10 @@ public class GameManager {
 	 * @return la game de l'id passé en paramettre
 	 * @throws GameException if no game found
 	 */
-	public Game getGame(String gameId) throws GameException {
+	public Game getGame(String gameId) {
 		Game game = games.get(gameId);		
 		if(game == null) {
-			throw new GameException(GAME_NO_FOUND);
+			throw new NoSuchElementException(GAME_NO_FOUND);
 		}
 		return game;
 	}
@@ -81,7 +81,7 @@ public class GameManager {
 	 * @param player joueur à ajouter
 	 * @throws GameException si la partie n'existe pas ou si la position est mauvaise
 	 */
-	public void addPlayerToGame(String gameId, Player player) throws GameException {		
+	public void addPlayerToGame(String gameId, Player player) {		
 		Game game = getGame(gameId);
 		addPlayerToGame(game, player, game.getNbPlayer());
 	}
@@ -97,7 +97,7 @@ public class GameManager {
 	 * 3 -> east
 	 * @throws GameException si la partie n'existe pas ou si la position est mauvaise
 	 */
-	public void addPlayerToGame(String gameId, Player player, int position) throws GameException {
+	public void addPlayerToGame(String gameId, Player player, int position)  {
 		addPlayerToGame(getGame(gameId), player, position);		
 	}
 	
@@ -112,7 +112,7 @@ public class GameManager {
 	 * 3 -> east
 	 * @throws GameException si la position est mauvaise
 	 */	
-	private void addPlayerToGame(Game game, Player player, int position) throws GameException {
+	private void addPlayerToGame(Game game, Player player, int position) {
 		Game gameTemp = game;
 		synchronized (gameTemp) {
 			switch (position) {
@@ -129,7 +129,7 @@ public class GameManager {
 				game.setEast(player);
 				break;
 			default:
-				throw new GameException(BAD_POSITION);
+				throw new IllegalArgumentException(BAD_POSITION);
 			}
 			player.setInGame(true);
 			

@@ -1,5 +1,6 @@
 package belote.websocket;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -12,7 +13,7 @@ public class BeloteWebSocketData {
 
 	JSONObject data = new JSONObject();
 	private static final String TYPE="type";
-	private static final String TOPIC="topic";
+	private static final String TOPICS="topics";
 	private static final String MSG="message";
 	private static final String REGISTER = "register";
 	private static final String SESSION = "session";
@@ -82,7 +83,7 @@ public class BeloteWebSocketData {
 		data.put(TYPE, topic);
 	}
 
-	public String getTopic() {
-		return data.getString(TOPIC);
+	public JSONArray getTopic() {
+		return data.getJSONArray(TOPICS);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -36,6 +37,10 @@ public class BeloteSocketHandler extends TextWebSocketHandler {
 		}
 	}
 	
+	private void register(JSONArray topics, WebSocketSession session) {
+		topics.forEach(topic->this.register((String)topic, session));
+	}
+
 	private void broadcastResigter(JSONObject jsonData, WebSocketSession session) throws IOException {
 		broadcast("register", jsonData, session);
 	}
@@ -44,6 +49,7 @@ public class BeloteSocketHandler extends TextWebSocketHandler {
 		BeloteWebSocketData dataObj =  BeloteWebSocketData.withJson(data);
 		dataObj.setType(topic);
 		 CopyOnWriteArrayList<WebSocketSession> sessions = topics.get(topic);
+		 if(sessions!=null && sessions.size()>0) {
 			try {
 				 for(WebSocketSession session : sessions) {
 					 if(session.isOpen())
@@ -52,6 +58,7 @@ public class BeloteSocketHandler extends TextWebSocketHandler {
 			} catch (IOException e) {
 				logger.error(e.getMessage());
 			}
+		 }
 		 
 	}
 	
@@ -93,6 +100,16 @@ public class BeloteSocketHandler extends TextWebSocketHandler {
 		 }
 		 if(!sessions.contains(session))
 		    sessions.add(session);
+	}
+
+	public void broadcastNewGame(String id) {
+		BeloteWebSocketData data = BeloteWebSocketData.getData("newGame", "game id "+id);
+		broadcast("newGame", data.getJsonData() );
+	}
+
+	public void broadcastNewPlayer(String player) {
+		BeloteWebSocketData data = BeloteWebSocketData.getData("newPlayer", player);
+		broadcast("newPlayer", data.getJsonData() );
 	}
 	
 

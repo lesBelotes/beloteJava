@@ -14,8 +14,8 @@ public class Card {
 		this.value = value;
 	}
 
-	public ColorEnum getColor() {
-		return color.getColor();
+	public Color getColor() {
+		return color;
 	}
 
 	public CardValue getValue() {

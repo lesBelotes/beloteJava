@@ -1,4 +1,4 @@
-package belote.tests.mocks;
+package mocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,30 +31,38 @@ public class PlayersMock {
 	
 	public static Player getBob() {
 		if(bob == null) {
-			bob = new Player("Bob", "1", "1");
+			bob = new Player("Bob","1");
 		}
 		return bob;
 	}
 	
 	public static Player getLiliane() {
 		if(liliane == null) {
-			liliane = new Player("Liliane", "2", "2");
+			liliane = new Player("Liliane", "2");
 		}
 		return liliane;
 	}
 	
 	public static Player getSandy() {
 		if(sandy == null) {
-			sandy = new Player("Sandy", "3", "3");
+			sandy = new Player("Sandy", "3");
 		}
 		return sandy;
 	}
 	
 	public static Player getTapette() {
 		if(tapette == null) {
-			tapette = new Player("Tapette", "4", "4");
+			tapette = new Player("Tapette", "4");
 		}
 		return tapette;
+	}
+
+	public static void iniPlayers() {
+		bob = null;
+		liliane = null;
+		sandy = null;
+		tapette = null;
+		
 	}
 
 }

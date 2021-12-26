@@ -6,30 +6,21 @@ import java.util.List;
 public class Player {
 	
 	private String pseudo;
-	private String ip;
 	private List<Card> hand;
 	private boolean isInGame;
 	private String id;
 
-	public Player(String pseudo, String ip, String id) {
+		
+	public Player(String pseudo, String id) {
 		super();
 		this.pseudo = pseudo;
-		this.ip = ip;
 		this.id = id;
 		isInGame = false;
 		hand = new ArrayList<>();
 	}
-	
-	public Player(String pseudo, String ip) {
-		this(pseudo, ip, Double.toString(System.currentTimeMillis()));
-	}
 
 	public String getPseudo() {
 		return pseudo;
-	}
-
-	public String getIp() {
-		return ip;
 	}
 	
 	public void addCardsToHand(List<Card> cards) {

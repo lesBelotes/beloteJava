@@ -6,3 +6,4 @@
 build
 /bin/default/belote/*.class
 /.settings/org.springframework.ide.eclipse.prefs
+/.settings/org.eclipse.jdt.core.prefs

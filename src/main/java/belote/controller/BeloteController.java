@@ -1,7 +1,6 @@
 package belote.controller;
 
 import java.util.Collection;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,11 +43,20 @@ public class BeloteController {
 		return gameManager.getGames().values();
 	}
 	
+	@GetMapping("/players")
+	public  Collection<Player> getPlayers(){
+		
+		PlayerManager playerManager = PlayerManager.getInstance();
+
+		return playerManager.getPlayers().values();
+	}
+	
+	
 	@PostMapping("/player/{pseudo}")
 	public String connectPlayer(@PathVariable String pseudo) {
 		PlayerManager playerManager = PlayerManager.getInstance();
 		socketManager.broadcastNewPlayer("new one");
-		return playerManager.createPlayer(pseudo, "");
+		return playerManager.createPlayer(pseudo);
 	}
 	
 	@PutMapping("/game/player/{idgame}/{idPlayer}")
@@ -56,10 +64,9 @@ public class BeloteController {
 		
 		PlayerManager playerManager = PlayerManager.getInstance();
 		GameManager gameManager =GameManager.getInstance();
-		
-		Player joueur = playerManager.getPlayer(idPlayer);		
+		Player joueur = playerManager.getPlayer(idPlayer);
 		gameManager.addPlayerToGame(idgame, joueur);
-		socketManager.broadcastNewPlayer(joueur.toString());
+		socketManager.broadcastNewPlayer(joueur.toString());			
 		return "player " + joueur.getPseudo() + " added";
 	}
 }

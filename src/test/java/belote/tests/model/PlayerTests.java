@@ -1,36 +1,39 @@
 package belote.tests.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import belote.model.Card;
 import belote.model.CardValue;
 import belote.model.Color;
 import belote.model.ColorEnum;
 import belote.model.Player;
-import belote.tests.mocks.PlayersMock;
+import mocks.PlayersMock;
 
-class PlayerTests {
+public class PlayerTests {
 
 	@Test
-	void equalTest() {
-		Player player1 = new Player("Bob", "1", "1");
-		assertFalse(!player1.equals(PlayersMock.getBob()),"Bob not same as Bob");
-		assertFalse(player1.equals(PlayersMock.getLiliane()),"Bob same as Liliane");
+	public void equalTest() {
+		Player player1 = new Player("Bob", "1");
+		assertEquals(player1, PlayersMock.getBob());
+		assertNotEquals(player1, PlayersMock.getLiliane());
 	}
 	
 	@Test
-	void handTest() {
-		Player bob = new Player("Bob", "1", "1");
+	public void handTest() {
+		Player bob = new Player("Bob", "1");
 		assertFalse(!(bob.getHand() != null && bob.getHand().isEmpty()),
 				"bad hand at beginnig");		
 
-		bob.addCardToHand(new Card(ColorEnum.CLUB, CardValue.ACE));
-		assertFalse(bob.getHand().size() != 1,"card no add to hand");		
+		bob.addCardToHand(new Card(ColorEnum.CLUB, CardValue.ACE));		
+		assertEquals(1, bob.getHand().size());			
 
 		Card aceClub = new Card(new Color(ColorEnum.CLUB), CardValue.ACE);
-		assertFalse(!bob.getHand().contains(aceClub),"wrong card added");
+		assertTrue(bob.getHand().contains(aceClub));
 	}
 
 }

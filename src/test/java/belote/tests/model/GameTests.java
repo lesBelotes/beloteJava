@@ -1,90 +1,92 @@
 package belote.tests.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import belote.model.Game;
 import belote.model.State;
-import belote.tests.mocks.PlayersMock;
+import mocks.PlayersMock;
 
-class GameTests {
+public class GameTests {
 	
 	private static final String ONE = "one";
 	private static final String TWO = "two";
-	private static final String PLAYER_NOT_ADD = "player not added";
 		
 	@Test
-	void newGameTest() {
-		Game game = new Game(ONE);		
-		assertFalse(!ONE.equals(game.getId()),"new game id null");
-		assertFalse(game.getTeamEW() == null,"new game team EW null");
-		assertFalse(game.getTeamNS() == null,"new game team NS null");
-		assertFalse(!State.WAITING.equals(game.getState()),"new game not in waitaing");
-		assertFalse(game.getNbPlayer() != 0,"new game need 0 player");
-		assertFalse(game.scorePointEW() != 0,"new game score EW not 0");
-		assertFalse(game.scorePointNS() != 0,"new game score NS not 0");
+	public void newGameTest() {
+		Game game = new Game(ONE);
+		
+		assertEquals(ONE, game.getId());	
+		assertNotNull(game.getTeamEW());	
+		assertNotNull(game.getTeamNS());
+		assertEquals(State.WAITING, game.getState());
+		assertEquals(0, game.getNbPlayer());
+		assertEquals(0, game.scorePointEW());
+		assertEquals(0, game.scorePointNS());
 	}
 	
 	@Test
-	void equalTest() {
+	public void equalTest() {
 		Game game1 = new Game(ONE);
 		Game game2 = new Game(TWO);
-		assertFalse(!game1.equals(new Game(ONE)),"gameUn not equal gameUn");
-		assertFalse(game1.equals(game2),"gameUn not equal gameDeux");
+		assertEquals(game1, new Game(ONE));
+		assertNotEquals(game1, game2);
 	}
 	
 	@Test
-	void addNorthPlayerTest() {
+	public void addNorthPlayerTest() {
 		Game game = new Game(ONE);
 		game.setNorth(PlayersMock.getBob());
 
-		assertFalse(game.getNbPlayer() != 1,PLAYER_NOT_ADD);
-		assertFalse(!PlayersMock.getBob().equals(game.getNorth()),"Player not in North");
+		assertEquals(1,game.getNbPlayer());
+		assertEquals(game.getNorth(),PlayersMock.getBob());
 	}
 	
 	@Test
-	void addWestPlayerTest() {
+	public void addWestPlayerTest() {
 		Game game = new Game(ONE);
 		game.setWest(PlayersMock.getBob());
-
-		assertFalse(game.getNbPlayer() != 1,PLAYER_NOT_ADD);
-		assertFalse(!PlayersMock.getBob().equals(game.getWest()),"Player not in West");
+		
+		assertEquals(1,game.getNbPlayer());
+		assertEquals(game.getWest(),PlayersMock.getBob());
 	}
 	
 	@Test
-	void addSouthPlayerTest() {
+	public void addSouthPlayerTest() {
 		Game game = new Game(ONE);
 		game.setSouth(PlayersMock.getBob());
-
-		assertFalse(game.getNbPlayer() != 1,PLAYER_NOT_ADD);
-		assertFalse(!PlayersMock.getBob().equals(game.getSouth()),"Player not in South");
+		
+		assertEquals(1,game.getNbPlayer());
+		assertEquals(game.getSouth(),PlayersMock.getBob());
 	}
 	
 	@Test
-	void addEastPlayerTest() {
+	public void addEastPlayerTest() {
 		Game game = new Game(ONE);
 		game.setEast(PlayersMock.getBob());
-
-		assertFalse(game.getNbPlayer() != 1,PLAYER_NOT_ADD);
-		assertFalse(!PlayersMock.getBob().equals(game.getEast()),"Player not in East");
+		
+		assertEquals(1,game.getNbPlayer());
+		assertEquals(game.getEast(),PlayersMock.getBob());
 	}
 	
 	@Test
-	void addScoreTest() {
-		String errorEW = "score EW not 80";
-		Game game = new Game(ONE);		
-		game.addPointToEW(80);
-		assertFalse(game.scorePointEW() != 80,errorEW);
-		assertFalse(game.scorePointNS() != 0,"score NS not 0");
+	public void addScoreTest() {
+		Game game = new Game(ONE);
 		
-		game.addPointToNS(120);
-		assertFalse(game.scorePointEW() != 80,errorEW);
-		assertFalse(game.scorePointNS() != 120,"score NS not 120");
+		game.addPointToEW(80);		
+		assertEquals(80,game.scorePointEW());
+		assertEquals(0,game.scorePointNS());
 		
-		game.addPointToNS(100);
-		assertFalse(game.scorePointEW() != 80,errorEW);
-		assertFalse(game.scorePointNS() != 220,"score NS not 220");
+		game.addPointToNS(120);		
+		assertEquals(80,game.scorePointEW());
+		assertEquals(120,game.scorePointNS());
+		
+		game.addPointToNS(100);		
+		assertEquals(80,game.scorePointEW());
+		assertEquals(220,game.scorePointNS());
 	}
 
 }

@@ -3,107 +3,108 @@ package belote.tests.manager;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import belote.exeption.GameException;
 import belote.manager.GameManager;
 import belote.model.Game;
-import belote.tests.mocks.PlayersMock;
+import belote.model.State;
+import mocks.PlayersMock;
 
-class GameManagerTests {
-	
+public class GameManagerTests {
+
 	private GameManager gameManager;
-	   
-	  @BeforeEach
-	  void intTests() {
-		  assertNull(gameManager);
-		  gameManager = GameManager.getInstance();		  
-	  }
-	  
-	  @AfterEach
-	  void resetGameManager() {
-		  gameManager = null;
-	  }
+
+	@Before
+	public void intTests() {
+		assertNull(gameManager);
+		gameManager = GameManager.getInstance();
+		PlayersMock.iniPlayers();
+	}
+
+	@After
+	public void resetGameManager() {
+		gameManager = null;
+	}
 
 	@Test
-	void test() {
-		//fail("Not yet implemented");
-	}
-	
-	@Test
-	void createGameTestNotNull() {
+	public void createGameTestNotNull() {
 		String idGame = gameManager.createGame();
 		Game game = gameManager.getGameById(idGame);
-		
+
 		assertNotNull(game);
 		assertEquals(idGame,game.getId());
 	}
-	
+
 	@Test
-	void createGameTestNotEqualGame() throws GameException {
+	public void createGameTestNotEqualGame() throws GameException {
 		Game game1 = gameManager.getNewGame();
 		Game game2 = gameManager.getNewGame();
-		
+
 		assertNotEquals(game1,game2);
 	}
-	
+
 	@Test
-	void addPlayerToGameTest() throws GameException {
+	public void addPlayerToGameTest() throws GameException {
 		String idGame = gameManager.createGame();
 		Game game = gameManager.getGameById(idGame);
-		
+
 		gameManager.addPlayerToGame(idGame, PlayersMock.getBob());
-		assertFalse(!PlayersMock.getBob().equals(game.getNorth()));
-		assertFalse(!PlayersMock.getBob().isInGame());
-		
+		assertEquals(PlayersMock.getBob(), game.getNorth());
+		assertTrue(PlayersMock.getBob().isInGame());
+		assertEquals(State.WAITING, game.getState());
+
 		gameManager.addPlayerToGame(idGame, PlayersMock.getLiliane());
-		assertFalse(!PlayersMock.getLiliane().equals(game.getWest()));
-		assertFalse(!PlayersMock.getLiliane().isInGame());	
+		assertEquals(PlayersMock.getLiliane(), game.getWest());
+		assertTrue(PlayersMock.getLiliane().isInGame());
+		assertEquals(State.WAITING, game.getState());
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getSandy());
-		assertFalse(!PlayersMock.getSandy().equals(game.getSouth()));
-		assertFalse(!PlayersMock.getSandy().isInGame());
+		assertEquals(PlayersMock.getSandy(), game.getSouth());
+		assertTrue(PlayersMock.getSandy().isInGame());
+		assertEquals(State.WAITING, game.getState());
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getTapette());
-		assertFalse(!PlayersMock.getTapette().equals(game.getEast()));
-		assertFalse(!PlayersMock.getTapette().isInGame());
+		assertEquals(PlayersMock.getTapette(), game.getEast());
+		assertTrue(PlayersMock.getTapette().isInGame());
+		assertEquals(State.START, game.getState());
 	}
-	
+
 	@Test
-	void addPlayerToGameTestPositionOk() throws GameException {
+	public void addPlayerToGameTestPositionOk() throws GameException {
 		String idGame = gameManager.createGame();
 		Game game = gameManager.getGameById(idGame);
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getLiliane(),3);
-		assertFalse(!PlayersMock.getLiliane().equals(game.getEast()));
-		
+		assertEquals(PlayersMock.getLiliane(), game.getEast());
+
 		gameManager.addPlayerToGame(idGame, PlayersMock.getSandy(),1);
-		assertFalse(!PlayersMock.getSandy().equals(game.getWest()));	
+		assertEquals(PlayersMock.getSandy(), game.getWest());
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getBob(),2);
-		assertFalse(!PlayersMock.getBob().equals(game.getSouth()));
+		assertEquals(PlayersMock.getBob(), game.getSouth());
 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getTapette(),0);
-		assertFalse(!PlayersMock.getTapette().equals(game.getNorth()));
+		assertEquals(PlayersMock.getTapette(), game.getNorth());
 	}
-	
+
 	@Test
-	void addPlayerToGameTestPositionKo() {
+	public void addPlayerToGameTestPositionKo() {
 		String idGame = gameManager.createGame();
 		Game game = gameManager.getGameById(idGame);
 
-		Assertions.assertThrows(GameException.class, () -> 
+		Assertions.assertThrows(IllegalArgumentException.class, () -> 
 		gameManager.addPlayerToGame(idGame, PlayersMock.getLiliane(),7)
 				);
-		assertFalse(game.getNbPlayer() != 0);		
+		assertEquals(0, game.getNbPlayer());	
 	}
-	
-	
+
+
 
 }

@@ -1,4 +1,4 @@
-package belote.model;
+package belote.enums;
 
 public enum State {
 

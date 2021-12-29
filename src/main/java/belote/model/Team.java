@@ -1,5 +1,7 @@
 package belote.model;
 
+import java.util.Objects;
+
 public class Team {
 	
 	private Player player1;
@@ -37,6 +39,23 @@ public class Team {
 	
 	public void addPoints(int points) {
 		score += points;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(player1, player2);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Team other = (Team) obj;
+		return Objects.equals(player1, other.player1) && Objects.equals(player2, other.player2);
 	}
 	
 	

@@ -1,7 +1,9 @@
-package belote.model;
+package belote.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import belote.enums.CardValue;
 
 public class CardPoint {
 	
@@ -46,7 +48,7 @@ public class CardPoint {
 	}
 	
 	public static int getPoint(CardValue value) {
-		return getPoint(value.getAbbreviation());
+		return getPoint(value.getvalue());
 	}
 	
 	public static int getAtoutPoint(String value) {
@@ -57,7 +59,7 @@ public class CardPoint {
 	}
 	
 	public static int getAtoutPoint(CardValue value) {
-		return getAtoutPoint(value.getAbbreviation());
+		return getAtoutPoint(value.getvalue());
 	}
 	
 

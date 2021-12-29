@@ -3,6 +3,8 @@ package belote.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import belote.enums.State;
+
 public class Game {
 	/**
 	 * 2 equipes pour jouer , chaque equie contient 2 joueurs.
@@ -14,6 +16,12 @@ public class Game {
 	private int pointMax;
 	
 	private State state;
+	
+	//round en cour
+	private Round round;
+	
+	//liste des rounds passé
+	private List<Round> rounds;
 
 	public Game(String id) {
 		teamNS = new Team();
@@ -21,6 +29,7 @@ public class Game {
 		this.id = id;
 		pointMax = 2250;
 		state = State.WAITING;
+		rounds = new ArrayList<>();
 	}
 
 	public Team getTeamNS() {
@@ -122,8 +131,7 @@ public class Game {
 		addPlayer(players, getNorth());
 		addPlayer(players, getWest());
 		addPlayer(players, getSouth());
-		addPlayer(players, getEast());
-		
+		addPlayer(players, getEast());		
 		return players;
 	}
 	
@@ -136,6 +144,30 @@ public class Game {
 		if(playerToAdd != null) {
 			players.add(playerToAdd);
 		}		
+	}
+	
+	public Round getRound() {
+		return round;
+	}
+	
+	public void setRound(Round round) {
+		this.round = round;
+	}
+	
+	public List<Round> getRounds() {
+		return rounds;
+	}
+	
+	public void setRounds(List<Round> rounds) {
+		this.rounds = rounds;
+	}
+	
+	/**
+	 * Ajoute un round à la liste des rounds
+	 * @param round round à ajouter
+	 */
+	public void addRound(Round round) {
+		rounds.add(round);
 	}
 
 	@Override

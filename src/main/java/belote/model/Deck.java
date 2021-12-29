@@ -3,6 +3,8 @@ package belote.model;
 import java.util.EnumMap;
 import java.util.List;
 
+import belote.enums.ColorEnum;
+
 public class Deck  {
 	
 	private List<Card> cards;

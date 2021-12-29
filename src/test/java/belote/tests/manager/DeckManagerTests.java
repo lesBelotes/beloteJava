@@ -9,10 +9,10 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import belote.enums.ColorEnum;
 import belote.exeption.GameException;
 import belote.manager.DeckManager;
 import belote.model.Card;
-import belote.model.ColorEnum;
 import belote.model.Deck;
 import belote.model.Player;
 import mocks.PlayersMock;

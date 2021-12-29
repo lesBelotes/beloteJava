@@ -1,5 +1,7 @@
 package belote.model;
 
+import belote.enums.ColorEnum;
+
 public class Color {
 	
 	private ColorEnum colorEnum;

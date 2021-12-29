@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import belote.enums.State;
 import belote.exeption.GameException;
 import belote.manager.GameManager;
 import belote.model.Game;
-import belote.model.State;
 import mocks.PlayersMock;
 
 public class GameManagerTests {

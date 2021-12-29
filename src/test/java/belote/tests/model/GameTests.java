@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.Test;
 
+import belote.enums.State;
 import belote.model.Game;
-import belote.model.State;
 import mocks.PlayersMock;
 
 public class GameTests {

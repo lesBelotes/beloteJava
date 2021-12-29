@@ -1,5 +1,9 @@
 package belote.model;
 
+import belote.enums.CardValue;
+import belote.enums.ColorEnum;
+import belote.util.CardPoint;
+
 public class Card {
 	
 	private Color color;

@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 
 import belote.model.Card;
-import mocks.CardsMovk;
+import mocks.CardsMock;
 
 public class ColorTests {
 	
 	@Test
 	public void equalTest() {
-		Card aceClub = CardsMovk.getAceClub();
-		Card heightClub = CardsMovk.getHeightClub();
+		Card aceClub = CardsMock.getAceClub();
+		Card heightClub = CardsMock.getHeightClub();
 		
 		assertEquals(aceClub.getColor(), heightClub.getColor());		
 	}

@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Test;
 
+import belote.enums.CardValue;
+import belote.enums.ColorEnum;
 import belote.model.Card;
-import belote.model.CardValue;
 import belote.model.Color;
-import belote.model.ColorEnum;
 import belote.model.Player;
 import mocks.PlayersMock;
 

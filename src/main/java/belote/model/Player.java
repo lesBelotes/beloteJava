@@ -1,12 +1,13 @@
 package belote.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Player {
 	
 	private String pseudo;
-	private List<Card> hand;
+	private Set<Card> hand;
 	private boolean isInGame;
 	private String id;
 
@@ -16,14 +17,14 @@ public class Player {
 		this.pseudo = pseudo;
 		this.id = id;
 		isInGame = false;
-		hand = new ArrayList<>();
+		hand = new HashSet<>();
 	}
 
 	public String getPseudo() {
 		return pseudo;
 	}
 	
-	public void addCardsToHand(List<Card> cards) {
+	public void addCardsToHand(Set<Card> cards) {
 		hand.addAll(cards);
 	}
 	
@@ -31,7 +32,7 @@ public class Player {
 		hand.add(card);
 	}
 
-	public List<Card> getHand() {
+	public Set<Card> getHand() {
 		return hand;
 	}
 

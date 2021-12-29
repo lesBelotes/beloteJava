@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.Test;
 
+import belote.enums.CardValue;
+import belote.enums.ColorEnum;
 import belote.model.Card;
-import belote.model.CardValue;
 import belote.model.Color;
-import belote.model.ColorEnum;
 
 public class CardTests {
 

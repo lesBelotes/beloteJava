@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import belote.enums.State;
 import belote.model.Game;
 import belote.model.Player;
-import belote.model.State;
 import belote.util.RandomUtil;
 
 public class GameManager {

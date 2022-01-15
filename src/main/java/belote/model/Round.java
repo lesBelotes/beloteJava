@@ -16,6 +16,9 @@ public class Round {
 	//position du joueur qui à la belote null si pas de belote
 	private Position belote;
 	
+	// liste des annonces
+	private List<Contrat> contrats;
+	
 	private Contrat contrat;
 	
 	//plis remportés par l equipe Nord sud
@@ -31,6 +34,7 @@ public class Round {
 		this.opener = opener;
 		this.plisNS = new ArrayList<>();
 		this.plisWE = new ArrayList<>();
+		this.contrats = new ArrayList<>();
 		this.pli = new Pli(opener);
 	}
 
@@ -40,6 +44,14 @@ public class Round {
 
 	public Contrat getContrat() {
 		return contrat;
+	}
+	
+	public List<Contrat> getContrats() {
+		return contrats;
+	}
+	
+	public void abbContrat(Contrat contrat) {
+		contrats.add(contrat);
 	}
 
 	public void setContrat(Contrat contrat) {
@@ -86,18 +98,35 @@ public class Round {
 		this.plisWE = plisWE;
 	}
 
+	/**
+	 * 
+	 * @return le pli encour
+	 */
 	public Pli getPli() {
 		return pli;
 	}
 
+	/**
+	 * remplace le pli en cour
+	 * @param pli
+	 */
 	public void setPli(Pli pli) {
 		this.pli = pli;
 	}
 	
+	/**
+	 * 
+	 * @return la position du joueur qui a la belote 
+	 * si pas de belote retourn null
+	 */
 	public Position getBelote() {
 		return belote;
 	}
 	
+	/**
+	 * 
+	 * @param belote position du joueur qui à la belote
+	 */
 	public void setBelote(Position belote) {
 		this.belote = belote;
 	}

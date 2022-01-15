@@ -1,6 +1,13 @@
 package belote.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import belote.enums.ColorEnum;
+import belote.enums.ContratTypes;
 import belote.enums.Position;
+import belote.model.Card;
+import belote.model.ContratType;
 import belote.model.Game;
 import belote.model.Player;
 import belote.model.Team;
@@ -121,6 +128,36 @@ public class GameUtil {
 		}
 		
 		return Position.values()[nextIndex];
+	}
+	
+	/**
+	 * recupere les ContratTypes sous forme de ContratType
+	 * @return la list de tous les ContratType
+	 */
+	public static List<ContratType> getContratTypes() {
+		
+		List<ContratType> contratTypes = new ArrayList<>();		
+		for (ContratTypes ct :  ContratTypes.values()) {
+			contratTypes.add(new ContratType(ct));			
+		}		
+		return contratTypes;		
+	}
+
+	/**
+	 * 
+	 * @return les couleurs d un jeu de carrtes
+	 */
+	public static List<String> getColors() {
+		List<String> colors = new ArrayList<>();
+		for (ColorEnum color :  ColorEnum.values()) {
+			colors.add(color.name());			
+		}		
+		return colors;
+	}
+
+	public static Card getCard(String cardStr) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

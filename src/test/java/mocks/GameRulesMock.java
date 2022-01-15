@@ -7,6 +7,7 @@ import java.util.Set;
 import belote.enums.Position;
 import belote.interfaces.IGameRules;
 import belote.model.Card;
+import belote.model.ContratType;
 import belote.model.Pli;
 import belote.model.ResultContrat;
 import belote.model.Round;
@@ -16,14 +17,20 @@ public class GameRulesMock implements IGameRules{
 	private Position winner;
 	private ResultContrat resultContrat;
 	private boolean playCard;
+	private boolean contratDetermined;
 	
 	
 
-	public GameRulesMock(Position winner, ResultContrat resultContrat, boolean playCard) {
+	public GameRulesMock(Position winner, ResultContrat resultContrat, boolean playCard, boolean contratDetermined) {
 		super();
 		this.winner = winner;
 		this.resultContrat = resultContrat;
 		this.playCard = playCard;
+		this.contratDetermined = contratDetermined;
+	}
+
+	public GameRulesMock(Position winner, ResultContrat resultContrat, boolean playCard) {
+		this(winner, resultContrat, playCard, false);
 	}
 
 	public GameRulesMock() {
@@ -62,6 +69,15 @@ public class GameRulesMock implements IGameRules{
 	
 	public void setResultContrat(ResultContrat resultContrat) {
 		this.resultContrat = resultContrat;
+	}
+	
+	public void setContratDetermined(boolean contratDetermined) {
+		this.contratDetermined = contratDetermined;
+	}
+
+	@Override
+	public boolean isContratDetermined(List<ContratType> contrats) {
+		return contratDetermined;
 	}
 
 }

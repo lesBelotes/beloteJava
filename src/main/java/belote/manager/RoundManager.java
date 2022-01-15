@@ -2,6 +2,8 @@ package belote.manager;
 
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import belote.enums.Position;
 import belote.exeption.GameException;
 import belote.interfaces.IGameRules;
@@ -12,8 +14,12 @@ import belote.model.Pli;
 import belote.model.ResultContrat;
 import belote.model.Round;
 import belote.util.GameUtil;
+import belote.websocket.BeloteSocketHandler;
 
 public class RoundManager {
+	
+	@Autowired
+	BeloteSocketHandler socketManager;
 	
 	private IGameRules gameRules;	
 	
@@ -55,6 +61,11 @@ public class RoundManager {
 		Player player = GameUtil.getPlayer(position, game);
 		Round round = game.getRound();		
 		playCard(card, player.getHand(), round);
+		/*
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("card", card.toString());
+		socketManager.broadcast("play card",jsonObject );
+		*/
 	}
 	
 	/**
@@ -107,6 +118,7 @@ public class RoundManager {
 		
 		Position winner = round.getTacker();
 		
+		//si le contrat est chutté, c'est l'equipe du joueur suivant qui remporte les points
 		if(! resultContrat.isCompleted()) {
 			winner = GameUtil.getNext(winner);
 		}

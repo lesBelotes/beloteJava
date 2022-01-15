@@ -63,7 +63,11 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [value=" + value + ", color=" + color + "]";
+		return "Card [value=" + value + ", color=" + color.getColor().name() + "]";
+	}
+	
+	public String getName() {
+		return value + "-" + color.getColor().name();
 	}
 	
 	

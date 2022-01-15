@@ -1,8 +1,11 @@
 package belote.model;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
+
+import belote.util.GameUtil;
 
 public class Player {
 	
@@ -30,6 +33,16 @@ public class Player {
 	
 	public void addCardToHand(Card card) {
 		hand.add(card);
+	}
+	
+	public Card getCard(String cardStr) {		
+		Optional<Card> optionalCard = hand.stream()
+				.filter(c -> c.getName().equals(cardStr))
+				.findFirst();
+		if (!optionalCard.isPresent()) {
+			throw new NoSuchElementException(cardStr + " Not found");
+		}
+		return optionalCard.get();
 	}
 
 	public Set<Card> getHand() {

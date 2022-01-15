@@ -14,6 +14,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import belote.model.Card;
+
 @Component
 public class BeloteSocketHandler extends TextWebSocketHandler {
 	private Logger logger = Logger.getLogger(BeloteSocketHandler.class);
@@ -110,6 +112,18 @@ public class BeloteSocketHandler extends TextWebSocketHandler {
 	public void broadcastNewPlayer(String player) {
 		BeloteWebSocketData data = BeloteWebSocketData.getData("newPlayer", player);
 		broadcast("newPlayer", data.getJsonData() );
+	}
+
+	public void broadcastCardPlayed(Card card) {
+		BeloteWebSocketData data = BeloteWebSocketData.getData("cardPlayed",card.toString());
+		broadcast("cardPlayed", data.getJsonData() );
+	}
+
+	public void broadcastDistribute() {
+
+		BeloteWebSocketData data = BeloteWebSocketData.getData("distribute","");
+		broadcast("distribute", data.getJsonData());
+		
 	}
 	
 

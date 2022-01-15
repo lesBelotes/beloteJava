@@ -1,6 +1,6 @@
 package belote.exeption;
 
-public class GameException extends Exception {
+public class GameException extends RuntimeException {
 
 	/**
 	 * 

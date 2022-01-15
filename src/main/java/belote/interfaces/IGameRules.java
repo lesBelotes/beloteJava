@@ -5,6 +5,7 @@ import java.util.Set;
 
 import belote.enums.Position;
 import belote.model.Card;
+import belote.model.ContratType;
 import belote.model.Pli;
 import belote.model.ResultContrat;
 import belote.model.Round;
@@ -45,5 +46,12 @@ public interface IGameRules {
 	 * @return
 	 */
 	public ResultContrat pointToAdd(Round round);
+	
+	/**
+	 * détermine si la phase d'enchere est terminée
+	 * @param contrats 
+	 * @return true si la phase est terminée
+	 */
+	public boolean isContratDetermined(List<ContratType> contrats);
 
 }
